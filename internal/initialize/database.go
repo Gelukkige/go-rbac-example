@@ -1,0 +1,29 @@
+package initialize
+
+import (
+	"fmt"
+	"go-rbac-example/internal/global"
+
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
+)
+
+func DBInit() {
+	dbConfig := global.Config.Database
+
+	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=%s TimeZone=%s",
+		dbConfig.Host,
+		dbConfig.User,
+		dbConfig.Password,
+		dbConfig.DBName,
+		dbConfig.Port,
+		dbConfig.SSLMode,
+		dbConfig.TimeZone,
+	)
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	if err != nil {
+		panic(fmt.Sprintf("failed to connect database: %v", err))
+	}
+
+	global.DB = db
+}
