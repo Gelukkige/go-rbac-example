@@ -3,6 +3,7 @@ package initialize
 import (
 	"fmt"
 	"go-rbac-example/internal/global"
+	"go-rbac-example/internal/model"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -24,6 +25,12 @@ func DBInit() {
 	if err != nil {
 		panic(fmt.Sprintf("failed to connect database: %v", err))
 	}
+
+	err = db.AutoMigrate(
+		model.User{},
+		model.Role{},
+		model.Permission{},
+	)
 
 	global.DB = db
 }

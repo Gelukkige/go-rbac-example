@@ -16,3 +16,26 @@ type User struct {
 	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at"`
 	Roles     []Role         `gorm:"many2many:role_users;"`
 }
+
+type UserCreateReq struct {
+	Name    string   `json:"name" binding:"required"`
+	Phone   string   `json:"phone" binding:"required"`
+	Email   string   `json:"email"`
+	RoleIDs []uint64 `json:"role_ids"`
+}
+
+type UserUpdateReq struct {
+	ID      uint64   `json:"id" binding:"required"`
+	Name    string   `json:"name"`
+	Phone   string   `json:"phone"`
+	Email   string   `json:"email"`
+	RoleIDs []uint64 `json:"role_ids"`
+}
+
+type UserInfoResp struct {
+	ID    uint64   `json:"id"`
+	Name  string   `json:"name"`
+	Phone string   `json:"phone"`
+	Email string   `json:"email"`
+	Roles []string `json:"roles"`
+}
