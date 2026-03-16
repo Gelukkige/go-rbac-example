@@ -14,7 +14,7 @@ type User struct {
 	CreatedAt time.Time      `gorm:"column:created_at"`
 	UpdatedAt time.Time      `gorm:"column:updated_at"`
 	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at"`
-	Roles     []Role         `gorm:"many2many:role_users;"`
+	Roles     []Role         `gorm:"many2many:role_users;constraint:OnDelete:CASCADE;"`
 }
 
 type UserCreateReq struct {

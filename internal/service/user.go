@@ -26,3 +26,15 @@ func (s *UserService) CreateUser(req model.UserCreateReq) error {
 	}
 	return s.dao.CreateUser(&user)
 }
+
+func (s *UserService) DeleteUser(ids []uint64) error {
+	return s.dao.DeleteUser(ids)
+}
+
+func (s *UserService) UpdateUser(user *model.User) error {
+	return s.dao.UpdateUser(user)
+}
+
+func (s *UserService) ListUsers(page model.Page) ([]model.User, int64, error) {
+	return s.dao.ListUsers(page)
+}

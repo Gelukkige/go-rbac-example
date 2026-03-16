@@ -4,8 +4,8 @@ type Role struct {
 	ID          uint64       `gorm:"primaryKey"`
 	Name        string       `gorm:"column:name;not null"`
 	Desc        string       `gorm:"column:desc"`
-	Users       []User       `gorm:"many2many:role_users;"`
-	Permissions []Permission `gorm:"many2many:role_permissions;"`
+	Users       []User       `gorm:"many2many:role_users;constraint:OnDelete:CASCADE;"`
+	Permissions []Permission `gorm:"many2many:role_permissions;constraint:OnDelete:CASCADE;"`
 }
 
 type RoleCreateReq struct {

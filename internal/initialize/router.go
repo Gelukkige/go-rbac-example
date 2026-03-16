@@ -22,6 +22,9 @@ func RouterInit() {
 	userGroup := r.Group("/users")
 	{
 		userGroup.POST("/create", userAPI.CreateUser)
+		userGroup.DELETE("/delete", userAPI.DeleteUser)
+		userGroup.PUT("/update", userAPI.UpdateUser)
+		userGroup.POST("/list", userAPI.ListUsers)
 	}
 
 	addr := fmt.Sprintf("%s:%d", serverConfig.Host, serverConfig.Port)
