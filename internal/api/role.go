@@ -7,60 +7,60 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type UserAPI struct {
-	service *service.UserService
+type RoleAPI struct {
+	service *service.RoleService
 }
 
-func NewUserAPI(service *service.UserService) *UserAPI {
-	return &UserAPI{service: service}
+func NewRoleAPI(service *service.RoleService) *RoleAPI {
+	return &RoleAPI{service: service}
 }
 
-func (api *UserAPI) CreateUser(c *gin.Context) {
-	var req model.UserCreateReq
+func (api *RoleAPI) CreateRole(c *gin.Context) {
+	var req model.RoleCreateReq
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
-	if err := api.service.CreateUser(req); err != nil {
+	if err := api.service.CreateRole(req); err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}
 }
 
-func (api *UserAPI) DeleteUser(c *gin.Context) {
+func (api *RoleAPI) DeleteRole(c *gin.Context) {
 	var req model.DeleteIDs
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
-	if err := api.service.DeleteUser(req); err != nil {
+	if err := api.service.DeleteRole(req); err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}
 }
 
-func (api *UserAPI) UpdateUser(c *gin.Context) {
-	var user model.UserUpdateReq
-	if err := c.ShouldBindJSON(&user); err != nil {
+func (api *RoleAPI) UpdateRole(c *gin.Context) {
+	var role model.RoleUpdateReq
+	if err := c.ShouldBindJSON(&role); err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
-	if err := api.service.UpdateUser(user); err != nil {
+	if err := api.service.UpdateRole(role); err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}
 }
 
-func (api *UserAPI) ListUsers(c *gin.Context) {
+func (api *RoleAPI) ListRoles(c *gin.Context) {
 	var page model.Page
 	if err := c.ShouldBindQuery(&page); err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
-	users, total, err := api.service.ListUsers(page)
+	roles, total, err := api.service.ListRoles(page)
 	if err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(200, gin.H{"data": users, "total": total})
+	c.JSON(200, gin.H{"data": roles, "total": total})
 }

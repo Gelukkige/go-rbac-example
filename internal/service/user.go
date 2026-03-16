@@ -27,12 +27,23 @@ func (s *UserService) CreateUser(req model.UserCreateReq) error {
 	return s.dao.CreateUser(&user)
 }
 
-func (s *UserService) DeleteUser(ids []uint64) error {
-	return s.dao.DeleteUser(ids)
+func (s *UserService) DeleteUser(req model.DeleteIDs) error {
+	return s.dao.DeleteUser(req.IDs)
 }
 
-func (s *UserService) UpdateUser(user *model.User) error {
-	return s.dao.UpdateUser(user)
+func (s *UserService) UpdateUser(req model.UserUpdateReq) error {
+	roles := make([]model.Role, len(req.RoleIDs))
+	for i, roleID := range req.RoleIDs {
+		roles[i] = model.Role{ID: roleID}
+	}
+	user := model.User{
+		ID:    req.ID,
+		Name:  req.Name,
+		Phone: req.Phone,
+		Email: req.Email,
+		Roles: roles,
+	}
+	return s.dao.UpdateUser(&user)
 }
 
 func (s *UserService) ListUsers(page model.Page) ([]model.User, int64, error) {
