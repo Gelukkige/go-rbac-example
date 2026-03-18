@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"go-rbac-example/internal/global"
 	"go-rbac-example/internal/model"
+	"log"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -33,4 +34,5 @@ func DBInit() {
 	)
 
 	global.DB = db
+	log.Println("数据库连接成功并完成迁移!")
 }
