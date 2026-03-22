@@ -9,18 +9,18 @@ type Role struct {
 }
 
 type RoleCreateReq struct {
-	Name          string   `json:"name" binding:"required"`
-	Desc          string   `json:"desc"`
-	UserIDs       []uint64 `json:"user_ids"`
-	PermissionIDs []uint64 `json:"permission_ids"`
+	Name        string          `json:"name" binding:"required"`
+	Desc        string          `json:"desc"`
+	UserIDs     []uint64        `json:"user_ids"`
+	Permissions []PermissionReq `json:"permissions"`
 }
 
 type RoleUpdateReq struct {
-	ID            uint64   `json:"id" binding:"required"`
-	Name          string   `json:"name"`
-	Desc          string   `json:"desc"`
-	UserIDs       []uint64 `json:"user_ids"`
-	PermissionIDs []uint64 `json:"permission_ids"`
+	ID          uint64           `json:"id" binding:"required"`
+	Name        string           `json:"name"`
+	Desc        string           `json:"desc"`
+	UserIDs     []uint64         `json:"user_ids"`
+	Permissions *[]PermissionReq `json:"permissions"`
 }
 
 type RoleInfoResp struct {

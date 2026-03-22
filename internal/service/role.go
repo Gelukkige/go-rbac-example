@@ -14,21 +14,7 @@ func NewRoleService(dao *dao.RoleDao) *RoleService {
 }
 
 func (s *RoleService) CreateRole(req model.RoleCreateReq) error {
-	users := make([]model.User, len(req.UserIDs))
-	for i, userID := range req.UserIDs {
-		users[i] = model.User{ID: userID}
-	}
-	permissions := make([]model.Permission, len(req.PermissionIDs))
-	for i, permID := range req.PermissionIDs {
-		permissions[i] = model.Permission{ID: permID}
-	}
-	role := model.Role{
-		Name:        req.Name,
-		Desc:        req.Desc,
-		Users:       users,
-		Permissions: permissions,
-	}
-	return s.dao.CreateRole(&role)
+	return s.dao.CreateRole(req)
 }
 
 func (s *RoleService) DeleteRole(req model.DeleteIDs) error {
@@ -36,24 +22,9 @@ func (s *RoleService) DeleteRole(req model.DeleteIDs) error {
 }
 
 func (s *RoleService) UpdateRole(req model.RoleUpdateReq) error {
-	users := make([]model.User, len(req.UserIDs))
-	for i, userID := range req.UserIDs {
-		users[i] = model.User{ID: userID}
-	}
-	permissions := make([]model.Permission, len(req.PermissionIDs))
-	for i, permID := range req.PermissionIDs {
-		permissions[i] = model.Permission{ID: permID}
-	}
-	role := model.Role{
-		ID:          req.ID,
-		Name:        req.Name,
-		Desc:        req.Desc,
-		Users:       users,
-		Permissions: permissions,
-	}
-	return s.dao.UpdateRole(&role)
+	return s.dao.UpdateRole(&req)
 }
 
-func (s *RoleService) ListRoles(page model.Page) ([]model.Role, int64, error) {
+func (s *RoleService) ListRoles(page model.Page) ([]model.RoleInfoResp, int64, error) {
 	return s.dao.ListRoles(page)
 }
