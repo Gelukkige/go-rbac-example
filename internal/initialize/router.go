@@ -39,18 +39,6 @@ func RouterInit() {
 		roleGroup.POST("/list", roleAPI.ListRoles)
 	}
 
-	// PERMISSION
-	permissionDao := dao.NewPermissionDao(db)
-	permissionService := service.NewPermissionService(permissionDao)
-	permissionAPI := api.NewPermissionAPI(permissionService)
-	permissionGroup := r.Group("/permission")
-	{
-		permissionGroup.POST("/create", permissionAPI.CreatePermission)
-		permissionGroup.DELETE("/delete", permissionAPI.DeletePermission)
-		permissionGroup.PUT("/update", permissionAPI.UpdatePermission)
-		permissionGroup.POST("/list", permissionAPI.ListPermissions)
-	}
-
 	addr := fmt.Sprintf("%s:%d", serverConfig.Host, serverConfig.Port)
 	go r.Run(addr)
 }

@@ -25,6 +25,7 @@ func (api *UserAPI) CreateUser(c *gin.Context) {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}
+	c.JSON(200, "success!")
 }
 
 func (api *UserAPI) DeleteUser(c *gin.Context) {
@@ -37,6 +38,7 @@ func (api *UserAPI) DeleteUser(c *gin.Context) {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}
+	c.JSON(200, "success!")
 }
 
 func (api *UserAPI) UpdateUser(c *gin.Context) {
@@ -49,6 +51,7 @@ func (api *UserAPI) UpdateUser(c *gin.Context) {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}
+	c.JSON(200, "success!")
 }
 
 func (api *UserAPI) ListUsers(c *gin.Context) {

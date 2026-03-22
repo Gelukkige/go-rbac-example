@@ -25,6 +25,7 @@ func (api *RoleAPI) CreateRole(c *gin.Context) {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}
+	c.JSON(200, "success!")
 }
 
 func (api *RoleAPI) DeleteRole(c *gin.Context) {
@@ -37,6 +38,7 @@ func (api *RoleAPI) DeleteRole(c *gin.Context) {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}
+	c.JSON(200, "success!")
 }
 
 func (api *RoleAPI) UpdateRole(c *gin.Context) {
@@ -49,6 +51,7 @@ func (api *RoleAPI) UpdateRole(c *gin.Context) {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}
+	c.JSON(200, "success!")
 }
 
 func (api *RoleAPI) ListRoles(c *gin.Context) {
