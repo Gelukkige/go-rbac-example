@@ -39,10 +39,10 @@ func (dao *RoleDao) ListRoles(page model.Page) ([]model.Role, int64, error) {
 	pageSize := page.PageSize
 
 	if pageNum < 0 {
-		pageNum = 1
+		pageNum = model.DefaultPageNum
 	}
 	if pageSize <= 0 {
-		pageSize = 10
+		pageSize = model.DefaultPageSize
 	}
 	err = dao.db.Offset((pageNum - 1) * pageSize).Limit(pageSize).Find(&roles).Error
 	if err != nil {

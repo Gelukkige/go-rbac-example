@@ -39,10 +39,10 @@ func (dao *UserDao) ListUsers(page model.Page) ([]model.User, int64, error) {
 	pageSize := page.PageSize
 
 	if pageNum < 0 {
-		pageNum = 1
+		pageNum = model.DefaultPageNum
 	}
 	if pageSize <= 0 {
-		pageSize = 10
+		pageSize = model.DefaultPageSize
 	}
 	err = dao.db.Offset((pageNum - 1) * pageSize).Limit(pageSize).Find(&users).Error
 	if err != nil {

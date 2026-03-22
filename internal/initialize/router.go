@@ -19,7 +19,7 @@ func RouterInit() {
 	userDao := dao.NewUserDao(db)
 	userService := service.NewUserService(userDao)
 	userAPI := api.NewUserAPI(userService)
-	userGroup := r.Group("/users")
+	userGroup := r.Group("/user")
 	{
 		userGroup.POST("/create", userAPI.CreateUser)
 		userGroup.DELETE("/delete", userAPI.DeleteUser)

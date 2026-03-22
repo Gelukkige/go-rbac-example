@@ -39,10 +39,10 @@ func (dao *PermissionDao) ListPermissions(page model.Page) ([]model.Permission, 
 	pageSize := page.PageSize
 
 	if pageNum < 0 {
-		pageNum = 1
+		pageNum = model.DefaultPageNum
 	}
 	if pageSize <= 0 {
-		pageSize = 10
+		pageSize = model.DefaultPageSize
 	}
 	err = dao.db.Offset((pageNum - 1) * pageSize).Limit(pageSize).Find(&permissions).Error
 	if err != nil {
