@@ -27,6 +27,14 @@ func DBInit() {
 		panic(fmt.Sprintf("failed to connect database: %v", err))
 	}
 
+	sqlDB, err := db.DB()
+	if err != nil {
+		panic(fmt.Sprintf("failed to get sql.DB from gorm.DB: %v", err))
+	}
+
+	sqlDB.SetMaxIdleConns(dbConfig.MaxIdleConns)
+	sqlDB.SetMaxOpenConns(dbConfig.MaxOpenConns)
+
 	err = db.AutoMigrate(
 		model.User{},
 		model.Role{},
