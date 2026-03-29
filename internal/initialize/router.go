@@ -15,6 +15,9 @@ func RouterInit() {
 	r := gin.Default()
 	db := global.DB
 
+	logInApi := api.NewLogInAPI()
+	r.POST("/login", logInApi.LogIn)
+
 	// USER
 	userDao := dao.NewUserDao(db)
 	userService := service.NewUserService(userDao)
