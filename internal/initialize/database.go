@@ -39,6 +39,7 @@ func DBInit() {
 		model.User{},
 		model.Role{},
 		model.Permission{},
+		model.Data{},
 	)
 
 	global.DB = db

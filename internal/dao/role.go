@@ -93,11 +93,10 @@ func (dao *RoleDao) UpdateRole(req *model.RoleUpdateReq) error {
 				var perm model.Permission
 				sort.Strings(pReq.Columns)
 				err := tx.Where(model.Permission{
-					Page:   pReq.Page,
-					Action: pReq.Action,
-				}).Attrs(model.Permission{Columns: pReq.Columns}).
-					FirstOrCreate(&perm).Error
-
+					Page:    pReq.Page,
+					Action:  pReq.Action,
+					Columns: pReq.Columns,
+				}).FirstOrCreate(&perm).Error
 				if err != nil {
 					return err
 				}

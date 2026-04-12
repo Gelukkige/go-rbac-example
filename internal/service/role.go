@@ -1,8 +1,10 @@
 package service
 
 import (
+	"context"
 	"go-rbac-example/internal/dao"
 	"go-rbac-example/internal/model"
+	"go-rbac-example/internal/permission"
 )
 
 type RoleService struct {
@@ -18,11 +20,28 @@ func (s *RoleService) CreateRole(req model.RoleCreateReq) error {
 }
 
 func (s *RoleService) DeleteRole(req model.DeleteIDs) error {
-	return s.dao.DeleteRole(req.IDs)
-}
+	err := s.dao.DeleteRole(req.IDs)
+	if err != nil {
+		return err
+	}
 
+	// 删除相关权限缓存
+	ctx := context.Background()
+	for _, id := range req.IDs {
+		permission.DeleteRoleCache(ctx, id)
+	}
+	return nil
+}
 func (s *RoleService) UpdateRole(req model.RoleUpdateReq) error {
-	return s.dao.UpdateRole(&req)
+	err := s.dao.UpdateRole(&req)
+	if err != nil {
+		return err
+	}
+
+	// 删除相关权限缓存
+	ctx := context.Background()
+	permission.DeleteRoleCache(ctx, req.ID)
+	return nil
 }
 
 func (s *RoleService) ListRoles(page model.Page) ([]model.RoleInfoResp, int64, error) {

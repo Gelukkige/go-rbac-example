@@ -42,6 +42,15 @@ func RouterInit() {
 		roleGroup.POST("/list", roleAPI.ListRoles)
 	}
 
+	// DATA
+	dataDao := dao.NewDataDao(db)
+	dataService := service.NewDataService(dataDao)
+	dataAPI := api.NewDataAPI(dataService)
+	dataGroup := r.Group("/data")
+	{
+		dataGroup.POST("/list", dataAPI.ListData)
+	}
+
 	addr := fmt.Sprintf("%s:%d", serverConfig.Host, serverConfig.Port)
 	go r.Run(addr)
 }
